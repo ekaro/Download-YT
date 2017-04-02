@@ -1,2 +1,2 @@
 ﻿# Download-YT
-A simple youtube video downloader written in python
+A simple script for downloading youtube videos
