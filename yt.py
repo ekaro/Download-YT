@@ -2,7 +2,7 @@ import pafy #needs youtube-dl
 import validators
 import re
 
-defdir = "C:/Users/WRZG406/Desktop/python"
+defdir = "C:/Downloads"
 print("Default download directory is: %s" %defdir)
 
 valid_input = False
