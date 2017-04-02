@@ -1,2 +1,2 @@
 ﻿# Download-YT
-A simple script for downloading youtube videos
+A simple python script for downloading youtube videos
