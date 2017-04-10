@@ -46,7 +46,8 @@ while not valid_url:
 # printing possible formats of video        
 streams = video.streams
 print("\nYou can download these versions of the video:")
-for stream in streams:        
+
+for stream in streams:
     print("%s." %(streams.index(stream)+1), "Resolution: %s," %(stream.resolution), "Format: %s," %(stream.extension), "Size: %s MB" %(round(stream.get_filesize()/1024/1024, 2)))
 
 # selecting quality of video and downloading
