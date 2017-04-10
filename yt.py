@@ -7,25 +7,31 @@ print("\nDefault download directory is: %s" %defdir)
 # setting download directory
 valid_input = False
 while not valid_input:
-    defchange = input("\nDo you want to download to this directory? (y/n) ")  
+
+    defchange = input("\nDo you want to download to this directory? (y/n) ")
+
     if defchange.upper() == "N":
         ddir = input("\nEnter new directory: ")
         ddir.replace("\\", "/")
         print("\nVideo will be downloaded to %s: " %ddir)
         valid_input = True
         break           
+
     if defchange.upper() == "Y":
         ddir = defdir
         valid_input = True
         break       
+
     else:
         print("\nWrong input, please enter Y or N")
 
 # validation of url
 valid_url = False
 while not valid_url:
+
     url = input("\nEnter url of youtube video: ")
     valid_url = validators.url(url) 
+
     if valid_url:
         try:
             video = pafy.new(url)
@@ -33,6 +39,7 @@ while not valid_url:
         except: 
             valid_url = False
             print("\n%s is not a valid youtube url, please enter again." %url)                            
+
     else:
         print("\n%s is not a valid url, please enter again." %url)
 
@@ -45,12 +52,15 @@ for stream in streams:
 # selecting quality of video and downloading
 valid_input = False
 while not valid_input:   
+
     down = input("\nSelect which quality of the video you want to download (1...%s) or select B for best quality: " %(len(streams)))
     
     if down.upper() == 'B':
+
         best = video.getbest()
         print("\nResolution: %s," %(best.resolution), "Format: %s," %(best.extension), "Size: %s MB" %(round(best.get_filesize()/1024/1024, 2)))      
         valid_input = False
+
         while not valid_input:
             yn = input("\nDo you wish to download this video? (y/n) ")
             if yn.upper() == 'Y':
@@ -82,8 +92,10 @@ while not valid_input:
         break
     
     if downisnum and idown <= len(streams) and idown > 0:
-        print("\nResolution: %s," %(streams[idown-1].resolution), "Format: %s," %(streams[idown-1].extension), "Size: %s MB" %(round(streams[idown-1].get_filesize()/1024/1024, 2))) 
+
+        print("\nResolution: %s," %(streams[idown-1].resolution), "Format: %s," %(streams[idown-1].extension), "Size: %s MB" %(round(streams[idown-1].get_filesize()/1024/1024, 2)))
         valid_input = False
+
         while not valid_input:
             yn = input("\nDo you wish to download this video? (y/n) ")
             if yn.upper() == 'Y':
