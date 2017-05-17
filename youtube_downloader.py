@@ -2,12 +2,12 @@ import pafy # needs youtube-dl
 import validators
 
 defdir = "C:/Downloads"
-print("\nDefault download directory is: %s" %defdir)
+print("\nCurrent download directory is: %s" %defdir)
 
 # setting download directory
 valid_input = False
 while not valid_input:
-    defchange = input("\nDo you want to download to this directory? (y/n) ")
+    defchange = input("\nDo you want to download your video to this directory? (y/n) ")
     if defchange.upper() == "N":
         ddir = input("\nEnter new directory: ")
         ddir.replace("\\", "/")
@@ -29,7 +29,9 @@ while not valid_url:
     if valid_url:
         try:
             video = pafy.new(url)
+            print("\n")
             print(video.title)
+            print(video.duration)
         except: 
             valid_url = False
             print("\n%s is not a valid youtube url, please enter again." %url)                            
@@ -46,7 +48,7 @@ for stream in streams:
 # selecting quality of video and downloading
 valid_input = False
 while not valid_input:   
-    down = input("\nSelect which quality of the video you want to download (1...%s) or select B for best quality: " %(len(streams)))
+    down = input("\nSelect which quality you want to download (1...%s) or select B for the best quality: " %(len(streams)))
     
     if down.upper() == 'B':
         best = video.getbest()
@@ -62,7 +64,7 @@ while not valid_input:
                     valid_input = True
                     break
                 except:
-                    print("\nDownload not successful. Please try again later.")
+                    print("\nDownload was not successful. Please try again later.")
                     valid_input = True
                     break
             if yn.upper() == 'N':
@@ -93,7 +95,7 @@ while not valid_input:
                     valid_input = True
                     break
                 except:
-                    print("\nDownload not successful. Please try again later.")
+                    print("\nDownload was not successful. Please try again later.")
                     valid_input = True
                     break
             if yn.upper() == 'N':                
@@ -106,4 +108,4 @@ while not valid_input:
             valid_input = False   
     
     else:
-        print("\nWrong input, please enter number between 1 and %s or enter B for best quality." %(len(streams))) # need to fix showing of this after download is successful
+        print("\nWrong input, please enter a number between 1 and %s or enter B for the best quality." %(len(streams))) # need to fix showing of this after download is successful
