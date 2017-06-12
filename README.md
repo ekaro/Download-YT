@@ -1,2 +1,2 @@
 ﻿# Scripts
-Simple and useful python scripts
+Simple and useful Python scripts.
