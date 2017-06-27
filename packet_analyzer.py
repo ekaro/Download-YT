@@ -15,7 +15,7 @@ def analyze_tcp_header(data):
     win_size = tcp_hdr[5]            #fourth H
     chk_sum  = tcp_hdr[6]            #fifth H
     urg_ptr  = tcp_hdr[7]            #sixth H
-    data = recv_data[20:]
+    data = data[20:]
 
     urg = bool(flags & 0x0020)
     ack = bool(flags & 0x0010)
@@ -28,7 +28,7 @@ def analyze_tcp_header(data):
     print "|\tSource:\t\t%hu" % src_port
     print "|\tDest:\t\t%hu" % dst_port
     print "|\tSeq:\t\t%hu" % seq_num
-    print "|\tAck:\t\t%hu" % ack_sum
+    print "|\tAck:\t\t%hu" % ack_num
     print "|\tFlags:"
     print "|\t\tURG:%d" % urg
     print "|\t\tACK:%d" % ack
@@ -42,12 +42,12 @@ def analyze_tcp_header(data):
     return data
 
 def analyze_udp_header(data):
-    udp_hdr  = struct.unpack("!4H", recv_data[:8])
+    udp_hdr  = struct.unpack("!4H", data[:8])
     src_port = udp_hdr[0]
     dst_port = udp_hdr[1]
     length   = udp_hdr[2]
     chk_sum  = udp_hdr[3]
-    data     = recv_data[8:]
+    data     = data[8:]
 
     print "|======================UDP HEADER======================|"
     print "|\tSource:\t\t%hu" % src_port
@@ -57,7 +57,7 @@ def analyze_udp_header(data):
     
     return data
 
-def analzye_ip_header(data):
+def analyze_ip_header(data):
     ip_hdr    = struct.unpack("!6H4s4s", data[:20])
     ver       = ip_hdr[0] >> 12       #only read the first 4 bits
     hdr_len   = ip_hdr[0] & 0x0f00    #only read the last 4 bits
@@ -72,7 +72,6 @@ def analzye_ip_header(data):
     ip_chsum  = ip_hdr[5]             #sixth H
     src_ip  = socket.inet_ntoa(ip_hdr[6])  #first 4s
     dst_ip  = socket.inet_ntoa(ip_hdr[7])  #second 4s
-    data    = recv_data[20:]
 
     print "|======================IP HEADER======================|"
     print "|\tVersion:\t%hu" % ver
@@ -96,11 +95,11 @@ def analzye_ip_header(data):
     else:
         tcp_udp = "OTHER"
         
-    data = recv_data[20:]
+    data = data[20:]
     return data, tcp_udp
 
 def analyze_ether_header(data):
-    eth_hdr  = sruct.unpack("!6s6sH", data[:14]) 
+    eth_hdr  = struct.unpack("!6s6sH", data[:14]) 
     dst_mac  = binascii.hexlify(eth_hdr[0]) 
     src_mac  = binascii.hexlify(eth_hdr[1]) 
     proto    = eth_hdr[2] >> 8
@@ -145,4 +144,4 @@ def main():
     return
         
 while True:
-    main()
+	main()
